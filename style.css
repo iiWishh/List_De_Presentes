@@ -65,6 +65,9 @@
 /* ---------- 2. Reset & Base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Garante que [hidden] funcione dentro de flex/grid */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {
