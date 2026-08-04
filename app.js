@@ -19,24 +19,24 @@ const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 //    Ajuste à vontade para os itens da sua lista!
 // ───────────────────────────────────────────────────────────────
 const EMOJI_MAP = [
-  { keywords: ['panela', 'frigideira', 'wok', 'caçarola'], emoji: '🍳' },
-  { keywords: ['faca', 'faqueiro', 'talheres'],            emoji: '🍴' },
-  { keywords: ['liquidificador', 'mixer', 'processador'],  emoji: '🫙' },
-  { keywords: ['geladeira', 'refrigerador'],               emoji: '🧊' },
-  { keywords: ['microondas'],                              emoji: '📦' },
-  { keywords: ['cafeteira', 'café', 'nespresso'],          emoji: '☕' },
-  { keywords: ['batedeira'],                               emoji: '🎂' },
-  { keywords: ['torradeira'],                              emoji: '🍞' },
-  { keywords: ['lençol', 'cama', 'travesseiro', 'roupa'],  emoji: '🛏️' },
-  { keywords: ['toalha'],                                  emoji: '🛁' },
-  { keywords: ['vassoura', 'rodo', 'limpeza'],             emoji: '🧹' },
-  { keywords: ['copo', 'taça', 'xícara'],                  emoji: '🥂' },
-  { keywords: ['prato', 'tigela', 'bowl'],                 emoji: '🍽️' },
-  { keywords: ['vela', 'difusor', 'aromatizador'],         emoji: '🕯️' },
-  { keywords: ['quadro', 'decoração', 'espelho'],          emoji: '🖼️' },
-  { keywords: ['tapete'],                                  emoji: '🏠' },
-  { keywords: ['ferramenta', 'chave', 'parafuso'],         emoji: '🔧' },
-  { keywords: ['livro'],                                   emoji: '📚' },
+  { keywords: ['panela', 'frigideira', 'wok', 'caçarola'], emoji: '🎁' },
+  { keywords: ['faca', 'faqueiro', 'talheres'],            emoji: '🎁' },
+  { keywords: ['liquidificador', 'mixer', 'processador'],  emoji: '🎁' },
+  { keywords: ['geladeira', 'refrigerador'],               emoji: '🎁' },
+  { keywords: ['microondas'],                              emoji: '🎁' },
+  { keywords: ['cafeteira', 'café', 'nespresso'],          emoji: '🎁' },
+  { keywords: ['batedeira'],                               emoji: '🎁' },
+  { keywords: ['torradeira'],                              emoji: '🎁' },
+  { keywords: ['lençol', 'cama', 'travesseiro', 'roupa'],  emoji: '🎁' },
+  { keywords: ['toalha'],                                  emoji: '🎁' },
+  { keywords: ['vassoura', 'rodo', 'limpeza'],             emoji: '🎁' },
+  { keywords: ['copo', 'taça', 'xícara'],                  emoji: '🎁' },
+  { keywords: ['prato', 'tigela', 'bowl'],                 emoji: '🎁' },
+  { keywords: ['vela', 'difusor', 'aromatizador'],         emoji: '🎁' },
+  { keywords: ['quadro', 'decoração', 'espelho'],          emoji: '🎁' },
+  { keywords: ['tapete'],                                  emoji: '🎁' },
+  { keywords: ['ferramenta', 'chave', 'parafuso'],         emoji: '🎁' },
+  { keywords: ['livro'],                                   emoji: '🎁' },
   { keywords: ['jogo', 'conjunto', 'kit'],                 emoji: '🎁' },
 ];
 
@@ -160,10 +160,23 @@ async function reservarPresente(id, nomeCompleto) {
 // ─────────────────────────────────────────────────────────────────
 
 /**
- * Cancela a reserva de um presente após confirmação do usuário.
+ * Cancela a reserva de um presente após validação de senha e confirmação.
  * @param {number|string} itemId — ID do registro na tabela
  */
 async function cancelarReserva(itemId) {
+  // 1. Pede a senha de autorização
+  const senha = prompt('🔒 Digite a senha para desfazer a reserva:');
+
+  // Usuário fechou o prompt
+  if (senha === null) return;
+
+  // Senha incorreta
+  if (senha !== 'remove123') {
+    alert('❌ Senha incorreta. Acesso negado.');
+    return;
+  }
+
+  // 2. Confirmação final
   const confirmado = confirm('Tem certeza que deseja cancelar a reserva deste presente?');
   if (!confirmado) return;
 
@@ -182,6 +195,7 @@ async function cancelarReserva(itemId) {
     alert('Ops! Não foi possível cancelar a reserva. Tente novamente.');
   }
 }
+
 
 // ───────────────────────────────────────────────────────────────
 // 7. RENDERIZAÇÃO DA UI
